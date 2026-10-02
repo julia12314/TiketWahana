@@ -8,6 +8,7 @@ package tiketwahana;
  *
  * @author USER
  */
+
 public class TiketReguler extends Tiket {
     private double diskonHariKerja;
 
@@ -28,6 +29,17 @@ public class TiketReguler extends Tiket {
             this.diskonHariKerja = diskonHariKerja;
         }
     }
-    
-    
+
+    @Override
+    public double hitungHargaTiket() {
+        return getHargaDasar() - (getHargaDasar() * (this.diskonHariKerja / 100.0));
+    }
+
+    @Override
+    public void tampilkanDetailTiket() {
+        String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
+        String infoTambahan = String.format("Diskon: %.0f%%", this.diskonHariKerja);
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n",
+                "REGULER", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
+    }
 }

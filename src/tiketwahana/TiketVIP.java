@@ -8,6 +8,8 @@ package tiketwahana;
  *
  * @author USER
  */
+
+
 public class TiketVIP extends Tiket {
     private boolean aksesFastTrack;
     private double biayaFasilitasVIP;
@@ -45,14 +47,10 @@ public class TiketVIP extends Tiket {
 
     @Override
     public void tampilkanDetailTiket() {
-        String fastTrackStr = this.aksesFastTrack ? "Ya" : "Tidak";
         String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
-        System.out.printf("[VIP]     Kode: %-7s | Wahana: %-15s | Harga: Rp%-9.0f | FastTrack: %-3s | VIP Fee: Rp%-7.0f | Total: Rp%-9.0f | Stok: %-8s%n",
-                getKodeTiket(), getNamaWahana(), getHargaDasar(), fastTrackStr, this.biayaFasilitasVIP, hitungHargaTiket(), statusStok);
+        String fastTrackStr = this.aksesFastTrack ? "Ya" : "Tidak";
+        String infoTambahan = String.format("FT:%s, VIP:Rp%.0f", fastTrackStr, this.biayaFasilitasVIP);
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n",
+                "VIP", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
     }
 }
-
-    
-
-    
-

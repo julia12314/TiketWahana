@@ -8,15 +8,14 @@ package tiketwahana;
  *
  * @author USER
  */
+
 public class Tiket {
     private String kodeTiket;
     private String namaWahana;
     private double hargaDasar;
     private int stok;
     
-
     public static int totalTiketBerhasilDibuat = 0;
-
 
     public Tiket(String kodeTiket, String namaWahana, double hargaDasar, int stok) {
         this.kodeTiket = kodeTiket;
@@ -74,9 +73,7 @@ public class Tiket {
 
     public void tampilkanDetailTiket() {
         String statusStok = (this.stok > 0) ? String.valueOf(this.stok) : "SOLD OUT";
-        System.out.printf("| %-8s | %-18s | Rp%-10.0f | Stok: %-8s |%n", 
-            this.kodeTiket, this.namaWahana, hitungHargaTiket(), statusStok);
-    }    
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n", 
+            "BIASA", this.kodeTiket, this.namaWahana, getHargaDasar(), "-", hitungHargaTiket(), statusStok);
+    }
 }
-    
-

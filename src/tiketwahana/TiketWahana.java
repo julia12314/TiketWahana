@@ -17,6 +17,9 @@ public class TiketWahana {
         boolean ditemukan = false;
         for (int i = 0; i < jumlahTiket; i++) {
             if (daftarTiket[i].getKodeTiket().equalsIgnoreCase(kode)) {
+                System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
+                System.out.println("----------------------------------------------------------------------------------------------------------");
+                System.out.print("| 1  ");
                 daftarTiket[i].tampilkanDetailTiket();
                 ditemukan = true;
                 break;
@@ -27,12 +30,17 @@ public class TiketWahana {
         }
     }
 
-  
     public static void cariTiket(double hargaMaksimal, Tiket[] daftarTiket, int jumlahTiket) {
         System.out.printf("%n--- Hasil Pencarian Tiket dengan Harga <= Rp%.0f ---%n", hargaMaksimal);
         boolean ditemukan = false;
+        int no = 1;
         for (int i = 0; i < jumlahTiket; i++) {
             if (daftarTiket[i].hitungHargaTiket() <= hargaMaksimal) {
+                if (!ditemukan) {
+                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
+                    System.out.println("----------------------------------------------------------------------------------------------------------");
+                }
+                System.out.printf("| %-2d ", no++);
                 daftarTiket[i].tampilkanDetailTiket();
                 ditemukan = true;
             }
@@ -75,10 +83,10 @@ public class TiketWahana {
 
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10);
         daftarTiket[jumlahTiket++] = new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000);
-        daftarTiket[jumlahTiket++] = new TiketReguler("TKT-003", "Rumah Hantu", 40000, 0, 0); 
+        daftarTiket[jumlahTiket++] = new TiketReguler("TKT-003", "Rumah Hantu", 40000, 0, 0);
 
         System.out.println("=========================================================================");
-        System.out.println("   SISTEM MANAJEMEN PEMESANAN TIKET WAHANA TAMAN (MODUL 2 - 5)          ");
+        System.out.println("            SISTEM MANAJEMEN PEMESANAN TIKET WAHANA TAMAN                ");
         System.out.println("=========================================================================");
 
         while (isRunning) {
@@ -115,6 +123,7 @@ public class TiketWahana {
                     double harga = scanner.nextDouble();
                     System.out.print("Masukkan Jumlah Stok Tiket       : ");
                     int stok = scanner.nextInt();
+                    scanner.nextLine();
 
                     if (tipe == 1) {
                         System.out.print("Masukkan Diskon Hari Kerja (%)   : ");
@@ -134,17 +143,19 @@ public class TiketWahana {
                     break;
 
                 case 2:
-                    System.out.println("\n=======================================================================================================");
-                    System.out.println("                                      DAFTAR SELURUH TIKET WAHANA                                        ");
-                    System.out.println("=========================================================================================================");
+                    System.out.println("\n==========================================================================================================");
+                    System.out.println("                                      DAFTAR SELURUH TIKET WAHANA                                         ");
+                    System.out.println("==========================================================================================================");
+                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
+                    System.out.println("----------------------------------------------------------------------------------------------------------");
                     if (jumlahTiket == 0) {
                         System.out.println("Belum ada data tiket yang tersimpan.");
                     } else {
                         for (int i = 0; i < jumlahTiket; i++) {
-                            System.out.print((i + 1) + ". ");
+                            System.out.printf("| %-2d ", (i + 1));
                             daftarTiket[i].tampilkanDetailTiket();
                         }
-                        System.out.println("---------------------------------------------------------------------------------------------------------");
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
                         System.out.println("Total Objek Tiket Berhasil Dibuat: " + Tiket.totalTiketBerhasilDibuat);
                     }
                     break;
