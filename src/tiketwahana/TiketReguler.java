@@ -39,7 +39,12 @@ public class TiketReguler extends Tiket {
     public void tampilkanDetailTiket() {
         String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
         String infoTambahan = String.format("Diskon: %.0f%%", this.diskonHariKerja);
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n",
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n",
                 "REGULER", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
+    }
+
+    @Override
+    public void cetakAturanAkses() {
+        System.out.println("[Tiket Reguler] Jalur antrean standar. Mendapatkan potongan diskon khusus hari kerja!");
     }
 }

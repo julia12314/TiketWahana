@@ -50,7 +50,12 @@ public class TiketVIP extends Tiket {
         String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
         String fastTrackStr = this.aksesFastTrack ? "Ya" : "Tidak";
         String infoTambahan = String.format("FT:%s, VIP:Rp%.0f", fastTrackStr, this.biayaFasilitasVIP);
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n",
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n",
                 "VIP", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
+    }
+
+    @Override
+    public void cetakAturanAkses() {
+        System.out.println("[Tiket VIP] Jalur Fast-Track bebas antre + Sertifikat/Akses Fasilitas Jalur Khusus VIP!");
     }
 }

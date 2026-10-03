@@ -73,7 +73,12 @@ public class Tiket {
 
     public void tampilkanDetailTiket() {
         String statusStok = (this.stok > 0) ? String.valueOf(this.stok) : "SOLD OUT";
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-22s | Rp%-10.0f | %-8s |%n", 
+        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n", 
             "BIASA", this.kodeTiket, this.namaWahana, getHargaDasar(), "-", hitungHargaTiket(), statusStok);
+    }
+
+    // Method simulasi aksi/proses untuk mendemonstrasikan Dynamic Binding
+    public void cetakAturanAkses() {
+        System.out.println("[Tiket Biasa] Akses wahana standar tanpa keutamaan jalur atau fasilitas tambahan.");
     }
 }

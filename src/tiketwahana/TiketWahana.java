@@ -11,14 +11,16 @@ import java.util.Scanner;
  * @author USER
  */
 public class TiketWahana {
-
+    // =========================================================================
+    // COMPILE-TIME POLYMORPHISM (Method Overloading)
+    // =========================================================================
     public static void cariTiket(String kode, Tiket[] daftarTiket, int jumlahTiket) {
         System.out.println("\n--- Hasil Pencarian Berdasarkan Kode: " + kode + " ---");
         boolean ditemukan = false;
         for (int i = 0; i < jumlahTiket; i++) {
             if (daftarTiket[i].getKodeTiket().equalsIgnoreCase(kode)) {
-                System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
-                System.out.println("----------------------------------------------------------------------------------------------------------");
+                System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN       | TOTAL HARGA  | STOK     |");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------");
                 System.out.print("| 1  ");
                 daftarTiket[i].tampilkanDetailTiket();
                 ditemukan = true;
@@ -37,8 +39,8 @@ public class TiketWahana {
         for (int i = 0; i < jumlahTiket; i++) {
             if (daftarTiket[i].hitungHargaTiket() <= hargaMaksimal) {
                 if (!ditemukan) {
-                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
-                    System.out.println("----------------------------------------------------------------------------------------------------------");
+                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN       | TOTAL HARGA  | STOK     |");
+                    System.out.println("-------------------------------------------------------------------------------------------------------------------");
                 }
                 System.out.printf("| %-2d ", no++);
                 daftarTiket[i].tampilkanDetailTiket();
@@ -48,6 +50,30 @@ public class TiketWahana {
         if (!ditemukan) {
             System.out.println("Tidak ada tiket dengan harga di bawah atau sama dengan Rp" + hargaMaksimal);
         }
+    }
+
+    // =========================================================================
+    // RUNTIME POLYMORPHISM & DYNAMIC BINDING (Upcasting via Parameter Superclass)
+    // =========================================================================
+    public static void prosesCetakStrukTiket(Tiket itemTiket, int jumlahPesan) {
+        double totalBayar = itemTiket.hitungHargaTiket() * jumlahPesan;
+        
+        System.out.println("\n==================================================");
+        System.out.println("             STRUK PEMESANAN TIKET                ");
+        System.out.println("==================================================");
+        System.out.println("Kode Tiket   : " + itemTiket.getKodeTiket());
+        System.out.println("Nama Wahana  : " + itemTiket.getNamaWahana());
+        System.out.println("Jumlah Beli  : " + jumlahPesan + " tiket");
+        System.out.printf("Harga Satuan : Rp%.0f%n", itemTiket.hitungHargaTiket());
+        System.out.printf("Total Bayar  : Rp%.0f%n", totalBayar);
+        System.out.print("Akses Wahana : ");
+        
+        // DYNAMIC BINDING: Java mengeksekusi method cetakAturanAkses sesuai wujud asli
+        //objeknya saat runtime
+        itemTiket.cetakAturanAkses();
+        System.out.println("==================================================");
+        System.out.println("      * Transaksi Berhasil! Selamat Menikmati *    ");
+        System.out.println("==================================================");
     }
 
     public static int hapusTiket(String kode, Tiket[] daftarTiket, int jumlahTiket) {
@@ -77,13 +103,17 @@ public class TiketWahana {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        
+        // Polimorfisme Array Superclass (Menampung berbagai subclass)
         Tiket[] daftarTiket = new Tiket[100];
         int jumlahTiket = 0;
         boolean isRunning = true;
 
+        // Inisialisasi awal 4 data dari variasi subclass yang berbeda
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10);
         daftarTiket[jumlahTiket++] = new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000);
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-003", "Rumah Hantu", 40000, 0, 0);
+        daftarTiket[jumlahTiket++] = new TiketVVIP("TKT-004", "Kora-Kora VIP", 200000, 3, true, 50000);
 
         System.out.println("=========================================================================");
         System.out.println("            SISTEM MANAJEMEN PEMESANAN TIKET WAHANA TAMAN                ");
@@ -94,9 +124,10 @@ public class TiketWahana {
             System.out.println("1. Tambah Tiket Wahana Baru");
             System.out.println("2. Tampilkan Seluruh Tiket");
             System.out.println("3. Cari Tiket");
-            System.out.println("4. Hapus Data Tiket");
-            System.out.println("5. Keluar System");
-            System.out.print("Pilih Menu (1-5): ");
+            System.out.println("4. Pesan Tiket & Cetak Struk");
+            System.out.println("5. Hapus Data Tiket");
+            System.out.println("6. Keluar System");
+            System.out.print("Pilih Menu (1-6): ");
 
             int pilihan = scanner.nextInt();
             scanner.nextLine();
@@ -111,11 +142,12 @@ public class TiketWahana {
                     System.out.println("\nPilih Jenis Tiket Wahana:");
                     System.out.println("1. Tiket Reguler");
                     System.out.println("2. Tiket VIP");
-                    System.out.print("Pilih tipe (1-2): ");
+                    System.out.println("3. Tiket VVIP");
+                    System.out.print("Pilih tipe (1-3): ");
                     int tipe = scanner.nextInt();
                     scanner.nextLine();
 
-                    System.out.print("Masukkan Kode Tiket (misal TKT-004): ");
+                    System.out.print("Masukkan Kode Tiket (misal TKT-005): ");
                     String kode = scanner.nextLine();
                     System.out.print("Masukkan Nama Wahana             : ");
                     String wahana = scanner.nextLine();
@@ -137,33 +169,42 @@ public class TiketWahana {
                         double biayaVIP = scanner.nextDouble();
                         daftarTiket[jumlahTiket++] = new TiketVIP(kode, wahana, harga, stok, fastTrack, biayaVIP);
                         System.out.println("-> Tiket VIP Berhasil Ditambahkan!");
+                    } else if (tipe == 3) {
+                        System.out.print("Akses Lounge VVIP (true/false)   : ");
+                        boolean lounge = scanner.nextBoolean();
+                        System.out.print("Biaya Souvenir Eksklusif (Rp)    : ");
+                        double souvenir = scanner.nextDouble();
+                        daftarTiket[jumlahTiket++] = new TiketVVIP(kode, wahana, harga, stok, lounge, souvenir);
+                        System.out.println("-> Tiket VVIP Berhasil Ditambahkan!");
                     } else {
                         System.out.println("Pilihan jenis tiket tidak valid.");
                     }
                     break;
 
                 case 2:
-                    System.out.println("\n==========================================================================================================");
-                    System.out.println("                                      DAFTAR SELURUH TIKET WAHANA                                         ");
-                    System.out.println("==========================================================================================================");
-                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN    | TOTAL HARGA  | STOK     |");
-                    System.out.println("----------------------------------------------------------------------------------------------------------");
+                    System.out.println("\n================================================================================================-------------------");
+                    System.out.println("                                      DAFTAR SELURUH TIKET WAHANA                                                  ");
+                    System.out.println("================================================================================================-------------------");
+                    System.out.println("| NO | TIPE     | KODE     | WAHANA           | HARGA DASAR  | KETERANGAN TAMBAHAN       | TOTAL HARGA  | STOK     |");
+                    System.out.println("-------------------------------------------------------------------------------------------------------------------");
                     if (jumlahTiket == 0) {
                         System.out.println("Belum ada data tiket yang tersimpan.");
                     } else {
                         for (int i = 0; i < jumlahTiket; i++) {
                             System.out.printf("| %-2d ", (i + 1));
+                            
+                            // DYNAMIC BINDING TERJADI DI SINI saat perulangan array
                             daftarTiket[i].tampilkanDetailTiket();
                         }
-                        System.out.println("----------------------------------------------------------------------------------------------------------");
+                        System.out.println("-------------------------------------------------------------------------------------------------------------------");
                         System.out.println("Total Objek Tiket Berhasil Dibuat: " + Tiket.totalTiketBerhasilDibuat);
                     }
                     break;
 
                 case 3:
                     System.out.println("\nPilih Mode Pencarian Tiket:");
-                    System.out.println("1. Cari berdasarkan Kode Tiket");
-                    System.out.println("2. Cari berdasarkan Harga Maksimal");
+                    System.out.println("1. Cari berdasarkan Kode Tiket (String)");
+                    System.out.println("2. Cari berdasarkan Harga Maksimal (Double)");
                     System.out.print("Pilih opsi pencarian (1-2): ");
                     int opsiCari = scanner.nextInt();
                     scanner.nextLine();
@@ -171,10 +212,14 @@ public class TiketWahana {
                     if (opsiCari == 1) {
                         System.out.print("Masukkan Kode Tiket yang dicari: ");
                         String cariKode = scanner.nextLine();
+                        
+                        // Memanggil Overloading Method 1
                         cariTiket(cariKode, daftarTiket, jumlahTiket);
                     } else if (opsiCari == 2) {
                         System.out.print("Masukkan Batas Harga Maksimal (Rp): ");
                         double cariHarga = scanner.nextDouble();
+                        
+                        // Memanggil Overloading Method 2
                         cariTiket(cariHarga, daftarTiket, jumlahTiket);
                     } else {
                         System.out.println("Pilihan mode pencarian tidak valid.");
@@ -182,6 +227,51 @@ public class TiketWahana {
                     break;
 
                 case 4:
+                    if (jumlahTiket == 0) {
+                        System.out.println("Belum ada tiket yang dapat dipesan.");
+                    } else {
+                        System.out.println("\n--- PEMESANAN TIKET WAHANA ---");
+                        System.out.print("Masukkan Kode Tiket yang ingin dipesan: ");
+                        String kodePesan = scanner.nextLine();
+                        boolean ketemu = false;
+
+                        for (int i = 0; i < jumlahTiket; i++) {
+                            if (daftarTiket[i].getKodeTiket().equalsIgnoreCase(kodePesan)) {
+                                ketemu = true;
+                                Tiket tiketDipilih = daftarTiket[i];
+
+                                // Cek stok ketersediaan
+                                if (tiketDipilih.getStok() <= 0) {
+                                    System.out.println("-> Maaf, stok tiket untuk wahana " + tiketDipilih.getNamaWahana() + " sudah SOLD OUT!");
+                                    break;
+                                }
+
+                                System.out.println("Tiket Ditemukan: " + tiketDipilih.getNamaWahana() + " (Stok Tersedia: " + tiketDipilih.getStok() + ")");
+                                System.out.print("Masukkan Jumlah Tiket yang Ingin Dibeli: ");
+                                int jumlahPesan = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (jumlahPesan <= 0) {
+                                    System.out.println("-> Jumlah pemesanan harus lebih dari 0!");
+                                } else if (jumlahPesan > tiketDipilih.getStok()) {
+                                    System.out.println("-> Transaksi Gagal! Stok tidak mencukupi (Sisa stok: " + tiketDipilih.getStok() + ").");
+                                } else {
+                                    // Kurangi stok tiket
+                                    tiketDipilih.setStok(tiketDipilih.getStok() - jumlahPesan);
+                                    
+                                    // Proses transaksi dan cetak struk via Dynamic Binding
+                                    prosesCetakStrukTiket(tiketDipilih, jumlahPesan);
+                                }
+                                break;
+                            }
+                        }
+                        if (!ketemu) {
+                            System.out.println("-> Kode tiket \"" + kodePesan + "\" tidak ditemukan.");
+                        }
+                    }
+                    break;
+
+                case 5:
                     if (jumlahTiket == 0) {
                         System.out.println("Belum ada data tiket yang tersimpan untuk dihapus.");
                     } else {
@@ -191,7 +281,7 @@ public class TiketWahana {
                     }
                     break;
 
-                case 5:
+                case 6:
                     isRunning = false;
                     System.out.println("\nTerima kasih telah menggunakan Sistem Manajemen Tiket Wahana Taman!");
                     break;
