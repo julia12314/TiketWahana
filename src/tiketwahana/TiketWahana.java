@@ -11,9 +11,7 @@ import java.util.Scanner;
  * @author USER
  */
 public class TiketWahana {
-    // =========================================================================
-    // COMPILE-TIME POLYMORPHISM (Method Overloading)
-    // =========================================================================
+
     public static void cariTiket(String kode, Tiket[] daftarTiket, int jumlahTiket) {
         System.out.println("\n--- Hasil Pencarian Berdasarkan Kode: " + kode + " ---");
         boolean ditemukan = false;
@@ -52,9 +50,6 @@ public class TiketWahana {
         }
     }
 
-    // =========================================================================
-    // RUNTIME POLYMORPHISM & DYNAMIC BINDING (Upcasting via Parameter Superclass)
-    // =========================================================================
     public static void prosesCetakStrukTiket(Tiket itemTiket, int jumlahPesan) {
         double totalBayar = itemTiket.hitungHargaTiket() * jumlahPesan;
         
@@ -67,9 +62,7 @@ public class TiketWahana {
         System.out.printf("Harga Satuan : Rp%.0f%n", itemTiket.hitungHargaTiket());
         System.out.printf("Total Bayar  : Rp%.0f%n", totalBayar);
         System.out.print("Akses Wahana : ");
-        
-        // DYNAMIC BINDING: Java mengeksekusi method cetakAturanAkses sesuai wujud asli
-        //objeknya saat runtime
+ 
         itemTiket.cetakAturanAkses();
         System.out.println("==================================================");
         System.out.println("      * Transaksi Berhasil! Selamat Menikmati *    ");
@@ -103,13 +96,11 @@ public class TiketWahana {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
-        // Polimorfisme Array Superclass (Menampung berbagai subclass)
+
         Tiket[] daftarTiket = new Tiket[100];
         int jumlahTiket = 0;
         boolean isRunning = true;
 
-        // Inisialisasi awal 4 data dari variasi subclass yang berbeda
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10);
         daftarTiket[jumlahTiket++] = new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000);
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-003", "Rumah Hantu", 40000, 0, 0);
@@ -192,8 +183,7 @@ public class TiketWahana {
                     } else {
                         for (int i = 0; i < jumlahTiket; i++) {
                             System.out.printf("| %-2d ", (i + 1));
-                            
-                            // DYNAMIC BINDING TERJADI DI SINI saat perulangan array
+
                             daftarTiket[i].tampilkanDetailTiket();
                         }
                         System.out.println("-------------------------------------------------------------------------------------------------------------------");
@@ -213,13 +203,13 @@ public class TiketWahana {
                         System.out.print("Masukkan Kode Tiket yang dicari: ");
                         String cariKode = scanner.nextLine();
                         
-                        // Memanggil Overloading Method 1
+
                         cariTiket(cariKode, daftarTiket, jumlahTiket);
                     } else if (opsiCari == 2) {
                         System.out.print("Masukkan Batas Harga Maksimal (Rp): ");
                         double cariHarga = scanner.nextDouble();
                         
-                        // Memanggil Overloading Method 2
+                  
                         cariTiket(cariHarga, daftarTiket, jumlahTiket);
                     } else {
                         System.out.println("Pilihan mode pencarian tidak valid.");
@@ -240,7 +230,7 @@ public class TiketWahana {
                                 ketemu = true;
                                 Tiket tiketDipilih = daftarTiket[i];
 
-                                // Cek stok ketersediaan
+                             
                                 if (tiketDipilih.getStok() <= 0) {
                                     System.out.println("-> Maaf, stok tiket untuk wahana " + tiketDipilih.getNamaWahana() + " sudah SOLD OUT!");
                                     break;
@@ -259,7 +249,7 @@ public class TiketWahana {
                                     // Kurangi stok tiket
                                     tiketDipilih.setStok(tiketDipilih.getStok() - jumlahPesan);
                                     
-                                    // Proses transaksi dan cetak struk via Dynamic Binding
+                                   
                                     prosesCetakStrukTiket(tiketDipilih, jumlahPesan);
                                 }
                                 break;

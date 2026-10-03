@@ -41,7 +41,7 @@ public class TiketVVIP extends Tiket {
 
     @Override
     public double hitungHargaTiket() {
-        return getHargaDasar() + this.biayaSouvenirExclusif + 50000; // Layanan Penuh VVIP Tambahan 50rb
+        return getHargaDasar() + this.biayaSouvenirExclusif + 50000; 
     }
 
     @Override

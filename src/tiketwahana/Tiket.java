@@ -77,7 +77,6 @@ public class Tiket {
             "BIASA", this.kodeTiket, this.namaWahana, getHargaDasar(), "-", hitungHargaTiket(), statusStok);
     }
 
-    // Method simulasi aksi/proses untuk mendemonstrasikan Dynamic Binding
     public void cetakAturanAkses() {
         System.out.println("[Tiket Biasa] Akses wahana standar tanpa keutamaan jalur atau fasilitas tambahan.");
     }
