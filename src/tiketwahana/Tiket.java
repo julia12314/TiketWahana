@@ -9,7 +9,7 @@ package tiketwahana;
  * @author USER
  */
 
-public class Tiket {
+public abstract class Tiket {
     private String kodeTiket;
     private String namaWahana;
     private double hargaDasar;
@@ -67,17 +67,9 @@ public class Tiket {
         }
     }
 
-    public double hitungHargaTiket() {
-        return this.hargaDasar;
-    }
-
-    public void tampilkanDetailTiket() {
-        String statusStok = (this.stok > 0) ? String.valueOf(this.stok) : "SOLD OUT";
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n", 
-            "BIASA", this.kodeTiket, this.namaWahana, getHargaDasar(), "-", hitungHargaTiket(), statusStok);
-    }
-
-    public void cetakAturanAkses() {
-        System.out.println("[Tiket Biasa] Akses wahana standar tanpa keutamaan jalur atau fasilitas tambahan.");
-    }
+    // Abstract Method: Wajib di-override oleh seluruh Subclass
+    public abstract double hitungHargaTiket();
+    public abstract void cetakAturanAkses();
+    public abstract void tampilkanDetailTiket();
 }
+    

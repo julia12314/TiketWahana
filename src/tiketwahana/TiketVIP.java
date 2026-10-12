@@ -8,9 +8,7 @@ package tiketwahana;
  *
  * @author USER
  */
-
-
-public class TiketVIP extends Tiket {
+public class TiketVIP extends Tiket implements DapatFasilitas {
     private boolean aksesFastTrack;
     private double biayaFasilitasVIP;
 
@@ -56,6 +54,11 @@ public class TiketVIP extends Tiket {
 
     @Override
     public void cetakAturanAkses() {
-        System.out.println("[Tiket VIP] Jalur Fast-Track bebas antre + Sertifikat/Akses Fasilitas Jalur Khusus VIP!");
+        System.out.println("[Tiket VIP] Akses Jalur Fast-Track bebas antre + Hak Pilih Kursi Terdepan!");
+    }
+
+    @Override
+    public void tampilkanFasilitasKhusus() {
+        System.out.println("-> [Fasilitas Khusus] Mendapatkan akses jalur prioritas dan gratis cetak foto aksi wahana.");
     }
 }

@@ -8,8 +8,7 @@ package tiketwahana;
  *
  * @author USER
  */
-
-public class TiketVVIP extends Tiket {
+public class TiketVVIP extends Tiket implements DapatFasilitas {
     private boolean aksesLounge;
     private double biayaSouvenirExclusif;
 
@@ -41,7 +40,7 @@ public class TiketVVIP extends Tiket {
 
     @Override
     public double hitungHargaTiket() {
-        return getHargaDasar() + this.biayaSouvenirExclusif + 50000; 
+        return getHargaDasar() + this.biayaSouvenirExclusif + 50000;
     }
 
     @Override
@@ -55,7 +54,11 @@ public class TiketVVIP extends Tiket {
 
     @Override
     public void cetakAturanAkses() {
-        System.out.println("[Tiket VVIP] Akses Jalur Khusus + Akses VVIP Lounge Mewah + Souvenir Merchandise Eksklusif!");
+        System.out.println("[Tiket VVIP] Akses Jalur VIP Prioritas Tertinggi + Souvenir Merchandise Eksklusif!");
     }
-}   
 
+    @Override
+    public void tampilkanFasilitasKhusus() {
+        System.out.println("-> [Fasilitas Khusus] Akses prioritas naik sepuasnya tanpa antre dan gratis Merchandise Eksklusif taman bermain.");
+    }
+}
