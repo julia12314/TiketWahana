@@ -9,6 +9,5 @@ package tiketwahana;
  * @author USER
  */
 public interface DapatFasilitas {
-    void tampilkanFasilitasKhusus();
-    
+    void tampilkanFasilitasKhusus();    
 }
