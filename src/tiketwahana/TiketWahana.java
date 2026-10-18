@@ -12,7 +12,6 @@ import java.util.Scanner;
  */
 public class TiketWahana {
 
-    // Method Overloading (Compile-Time Polymorphism)
     public static void cariTiket(String kode, Tiket[] daftarTiket, int jumlahTiket) {
         System.out.println("\n--- Hasil Pencarian Berdasarkan Kode: " + kode + " ---");
         boolean ditemukan = false;
@@ -51,7 +50,6 @@ public class TiketWahana {
         }
     }
 
-    // Runtime Polymorphism & Dynamic Binding + Pengecekan instanceof Interface
     public static void prosesCetakStrukTiket(Tiket itemTiket, int jumlahPesan) {
         double totalBayar = itemTiket.hitungHargaTiket() * jumlahPesan;
         
@@ -66,10 +64,16 @@ public class TiketWahana {
         System.out.print("Akses Wahana : ");
         itemTiket.cetakAturanAkses();
 
-        // Pengecekan instanceof untuk Interface DapatFasilitas
+        // Pengecekan instanceof untuk Interface Pertama (DapatFasilitas)
         if (itemTiket instanceof DapatFasilitas) {
             DapatFasilitas fasilitas = (DapatFasilitas) itemTiket;
             fasilitas.tampilkanFasilitasKhusus();
+        }
+
+        // Pengecekan instanceof untuk Interface Kedua (DapatAsuransi)
+        if (itemTiket instanceof DapatAsuransi) {
+            DapatAsuransi asuransi = (DapatAsuransi) itemTiket;
+            asuransi.tampilkanInfoAsuransi();
         }
 
         System.out.println("==================================================");
@@ -108,11 +112,11 @@ public class TiketWahana {
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10);
         daftarTiket[jumlahTiket++] = new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000);
         daftarTiket[jumlahTiket++] = new TiketReguler("TKT-003", "Rumah Hantu", 40000, 0, 0);
-        daftarTiket[jumlahTiket++] = new TiketVVIP("TKT-004", "Kora-Kora VIP", 200000, 3, true, 50000);
+        daftarTiket[jumlahTiket++] = new TiketVVIP("TKT-004", "Kora-Kora VVIP", 200000, 3, true, 50000);
 
-        System.out.println("================================================");
-        System.out.println("    SISTEM MANAJEMEN PEMESANAN TIKET WAHANA     ");
-        System.out.println("================================================");
+        System.out.println("====================================================");
+        System.out.println("      SISTEM MANAJEMEN PEMESANAN TIKET WAHANA       ");
+        System.out.println("====================================================");
 
         while (isRunning) {
             System.out.println("\nMENU UTAMA:");

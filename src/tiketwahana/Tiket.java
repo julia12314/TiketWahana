@@ -25,51 +25,21 @@ public abstract class Tiket {
         totalTiketBerhasilDibuat++;
     }
 
-    public String getKodeTiket() {
-        return this.kodeTiket;
-    }
-
-    public void setKodeTiket(String kodeTiket) {
-        this.kodeTiket = kodeTiket;
-    }
-
-    public String getNamaWahana() {
-        return this.namaWahana;
-    }
-
-    public void setNamaWahana(String namaWahana) {
-        this.namaWahana = namaWahana;
-    }
-
-    public double getHargaDasar() {
-        return this.hargaDasar;
-    }
+    public String getKodeTiket() { return this.kodeTiket; }
+    public String getNamaWahana() { return this.namaWahana; }
+    public double getHargaDasar() { return this.hargaDasar; }
+    public int getStok() { return this.stok; }
 
     public void setHargaDasar(double hargaDasar) {
-        if (hargaDasar < 0) {
-            System.out.println("[Peringatan] Harga dasar tidak boleh negatif! Diset ke 0.");
-            this.hargaDasar = 0;
-        } else {
-            this.hargaDasar = hargaDasar;
-        }
-    }
-
-    public int getStok() {
-        return this.stok;
+        this.hargaDasar = (hargaDasar < 0) ? 0 : hargaDasar;
     }
 
     public void setStok(int stok) {
-        if (stok < 0) {
-            System.out.println("[Peringatan] Stok tidak boleh negatif! Diset ke 0.");
-            this.stok = 0;
-        } else {
-            this.stok = stok;
-        }
+        this.stok = (stok < 0) ? 0 : stok;
     }
 
-    // Abstract Method: Wajib di-override oleh seluruh Subclass
+    // Abstract Method Wajib
     public abstract double hitungHargaTiket();
     public abstract void cetakAturanAkses();
     public abstract void tampilkanDetailTiket();
-}
-    
+} 

@@ -8,34 +8,16 @@ package tiketwahana;
  *
  * @author USER
  */
-public class TiketVVIP extends Tiket implements DapatFasilitas {
+
+// Menerapkan Multiple Implements (DapatFasilitas dan DapatAsuransi)
+public class TiketVVIP extends Tiket implements DapatFasilitas, DapatAsuransi {
     private boolean aksesLounge;
     private double biayaSouvenirExclusif;
 
     public TiketVVIP(String kodeTiket, String namaWahana, double hargaDasar, int stok, boolean aksesLounge, double biayaSouvenirExclusif) {
         super(kodeTiket, namaWahana, hargaDasar, stok);
         this.aksesLounge = aksesLounge;
-        setBiayaSouvenirExclusif(biayaSouvenirExclusif);
-    }
-
-    public boolean isAksesLounge() {
-        return this.aksesLounge;
-    }
-
-    public void setAksesLounge(boolean aksesLounge) {
-        this.aksesLounge = aksesLounge;
-    }
-
-    public double getBiayaSouvenirExclusif() {
-        return this.biayaSouvenirExclusif;
-    }
-
-    public void setBiayaSouvenirExclusif(double biayaSouvenirExclusif) {
-        if (biayaSouvenirExclusif < 0) {
-            this.biayaSouvenirExclusif = 0;
-        } else {
-            this.biayaSouvenirExclusif = biayaSouvenirExclusif;
-        }
+        this.biayaSouvenirExclusif = biayaSouvenirExclusif;
     }
 
     @Override
@@ -57,8 +39,15 @@ public class TiketVVIP extends Tiket implements DapatFasilitas {
         System.out.println("[Tiket VVIP] Akses Jalur VIP Prioritas Tertinggi + Souvenir Merchandise Eksklusif!");
     }
 
+    // Override method dari Interface DapatFasilitas
     @Override
     public void tampilkanFasilitasKhusus() {
-        System.out.println("-> [Fasilitas Khusus] Akses prioritas naik sepuasnya tanpa antre dan gratis Merchandise Eksklusif taman bermain.");
+        System.out.println("-> [Fasilitas Khusus] Akses prioritas naik sepuasnya tanpa antre & Merchandise Eksklusif.");
+    }
+
+    // Override method dari Interface DapatAsuransi
+    @Override
+    public void tampilkanInfoAsuransi() {
+        System.out.println("-> [Asuransi VVIP] Perlindungan kecelakaan penuh senilai Rp20.000.000 selama bermain.");
     }
 }

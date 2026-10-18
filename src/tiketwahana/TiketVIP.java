@@ -15,27 +15,7 @@ public class TiketVIP extends Tiket implements DapatFasilitas {
     public TiketVIP(String kodeTiket, String namaWahana, double hargaDasar, int stok, boolean aksesFastTrack, double biayaFasilitasVIP) {
         super(kodeTiket, namaWahana, hargaDasar, stok);
         this.aksesFastTrack = aksesFastTrack;
-        setBiayaFasilitasVIP(biayaFasilitasVIP);
-    }
-
-    public boolean isAksesFastTrack() {
-        return this.aksesFastTrack;
-    }
-
-    public void setAksesFastTrack(boolean aksesFastTrack) {
-        this.aksesFastTrack = aksesFastTrack;
-    }
-
-    public double getBiayaFasilitasVIP() {
-        return this.biayaFasilitasVIP;
-    }
-
-    public void setBiayaFasilitasVIP(double biayaFasilitasVIP) {
-        if (biayaFasilitasVIP < 0) {
-            this.biayaFasilitasVIP = 0;
-        } else {
-            this.biayaFasilitasVIP = biayaFasilitasVIP;
-        }
+        this.biayaFasilitasVIP = biayaFasilitasVIP;
     }
 
     @Override
@@ -54,11 +34,11 @@ public class TiketVIP extends Tiket implements DapatFasilitas {
 
     @Override
     public void cetakAturanAkses() {
-        System.out.println("[Tiket VIP] Akses Jalur Fast-Track bebas antre + Hak Pilih Kursi Terdepan!");
+        System.out.println("[Tiket VIP] Jalur Fast-Track bebas antre.");
     }
 
     @Override
     public void tampilkanFasilitasKhusus() {
-        System.out.println("-> [Fasilitas Khusus] Mendapatkan akses jalur prioritas dan gratis cetak foto aksi wahana.");
+        System.out.println("-> [Fasilitas Khusus] Mendapatkan jalur prioritas dan gratis cetak foto aksi wahana.");
     }
 }
