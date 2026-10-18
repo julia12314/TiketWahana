@@ -11,6 +11,7 @@ package tiketwahana;
 public class TiketVIP extends Tiket implements DapatFasilitas {
     private boolean aksesFastTrack;
     private double biayaFasilitasVIP;
+    
 
     public TiketVIP(String kodeTiket, String namaWahana, double hargaDasar, int stok, boolean aksesFastTrack, double biayaFasilitasVIP) {
         super(kodeTiket, namaWahana, hargaDasar, stok);

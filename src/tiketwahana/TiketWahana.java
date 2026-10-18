@@ -11,7 +11,6 @@ import java.util.Scanner;
  * @author USER
  */
 public class TiketWahana {
-
     public static void cariTiket(String kode, Tiket[] daftarTiket, int jumlahTiket) {
         System.out.println("\n--- Hasil Pencarian Berdasarkan Kode: " + kode + " ---");
         boolean ditemukan = false;
@@ -69,7 +68,7 @@ public class TiketWahana {
             DapatFasilitas fasilitas = (DapatFasilitas) itemTiket;
             fasilitas.tampilkanFasilitasKhusus();
         }
-
+        
         // Pengecekan instanceof untuk Interface Kedua (DapatAsuransi)
         if (itemTiket instanceof DapatAsuransi) {
             DapatAsuransi asuransi = (DapatAsuransi) itemTiket;

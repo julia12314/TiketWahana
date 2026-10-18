@@ -8,7 +8,6 @@ package tiketwahana;
  *
  * @author USER
  */
-
 public class TiketReguler extends Tiket {
     private double diskonHariKerja;
 

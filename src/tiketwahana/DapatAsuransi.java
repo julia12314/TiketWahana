@@ -8,6 +8,7 @@ package tiketwahana;
  *
  * @author USER
  */
+
 public interface DapatAsuransi {
     void tampilkanInfoAsuransi();
 }   

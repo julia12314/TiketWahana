@@ -8,7 +8,6 @@ package tiketwahana;
  *
  * @author USER
  */
-
 public abstract class Tiket {
     private String kodeTiket;
     private String namaWahana;

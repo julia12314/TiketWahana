@@ -9,6 +9,7 @@ package tiketwahana;
  * @author USER
  */
 
+
 // Menerapkan Multiple Implements (DapatFasilitas dan DapatAsuransi)
 public class TiketVVIP extends Tiket implements DapatFasilitas, DapatAsuransi {
     private boolean aksesLounge;
