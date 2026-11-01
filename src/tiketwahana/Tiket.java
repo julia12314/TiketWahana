@@ -16,11 +16,14 @@ public abstract class Tiket {
     
     public static int totalTiketBerhasilDibuat = 0;
 
-    public Tiket(String kodeTiket, String namaWahana, double hargaDasar, int stok) {
+    public Tiket(String kodeTiket, String namaWahana, double hargaDasar, int stok) throws Exception {
+        if (hargaDasar < 0 || stok < 0) {
+            throw new Exception("Harga dasar atau stok tidak boleh bernilai negatif!");
+        }
         this.kodeTiket = kodeTiket;
         this.namaWahana = namaWahana;
-        setHargaDasar(hargaDasar);
-        setStok(stok);
+        this.hargaDasar = hargaDasar;
+        this.stok = stok;
         totalTiketBerhasilDibuat++;
     }
 
@@ -37,8 +40,7 @@ public abstract class Tiket {
         this.stok = (stok < 0) ? 0 : stok;
     }
 
-    // Abstract Method Wajib
     public abstract double hitungHargaTiket();
     public abstract void cetakAturanAkses();
-    public abstract void tampilkanDetailTiket();
-} 
+    public abstract void tampilkanDetailTiket(int no);
+}

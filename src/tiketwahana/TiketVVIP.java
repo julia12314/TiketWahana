@@ -9,13 +9,11 @@ package tiketwahana;
  * @author USER
  */
 
-
-// Menerapkan Multiple Implements (DapatFasilitas dan DapatAsuransi)
 public class TiketVVIP extends Tiket implements DapatFasilitas, DapatAsuransi {
     private boolean aksesLounge;
     private double biayaSouvenirExclusif;
 
-    public TiketVVIP(String kodeTiket, String namaWahana, double hargaDasar, int stok, boolean aksesLounge, double biayaSouvenirExclusif) {
+    public TiketVVIP(String kodeTiket, String namaWahana, double hargaDasar, int stok, boolean aksesLounge, double biayaSouvenirExclusif) throws Exception {
         super(kodeTiket, namaWahana, hargaDasar, stok);
         this.aksesLounge = aksesLounge;
         this.biayaSouvenirExclusif = biayaSouvenirExclusif;
@@ -27,28 +25,24 @@ public class TiketVVIP extends Tiket implements DapatFasilitas, DapatAsuransi {
     }
 
     @Override
-    public void tampilkanDetailTiket() {
-        String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
-        String loungeStr = this.aksesLounge ? "Ya" : "Tidak";
-        String infoTambahan = String.format("Lounge:%s, Souvenir:Rp%.0f", loungeStr, this.biayaSouvenirExclusif);
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n",
-                "VVIP", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
-    }
-
-    @Override
     public void cetakAturanAkses() {
-        System.out.println("[Tiket VVIP] Akses Jalur VIP Prioritas Tertinggi + Souvenir Merchandise Eksklusif!");
+        System.out.println("[Tiket VVIP] Akses Jalur VIP Prioritas Tertinggi!");
     }
 
-    // Override method dari Interface DapatFasilitas
     @Override
     public void tampilkanFasilitasKhusus() {
-        System.out.println("-> [Fasilitas Khusus] Akses prioritas naik sepuasnya tanpa antre & Merchandise Eksklusif.");
+        System.out.println("-> [Fasilitas Khusus VVIP] Akses lounge eksklusif & merchandise.");
     }
 
-    // Override method dari Interface DapatAsuransi
     @Override
     public void tampilkanInfoAsuransi() {
-        System.out.println("-> [Asuransi VVIP] Perlindungan kecelakaan penuh senilai Rp20.000.000 selama bermain.");
+        System.out.println("-> [Asuransi VVIP] Perlindungan kecelakaan penuh selama bermain.");
+    }
+
+    @Override
+    public void tampilkanDetailTiket(int no) {
+        String ket = "Lounge & Souvenir";
+        System.out.printf("| %-2d | VVIP     | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-6d |\n",
+                no, getKodeTiket(), getNamaWahana(), getHargaDasar(), ket, hitungHargaTiket(), getStok());
     }
 }

@@ -8,29 +8,29 @@ package tiketwahana;
  *
  * @author USER
  */
+
 public class TiketReguler extends Tiket {
     private double diskonHariKerja;
 
-    public TiketReguler(String kodeTiket, String namaWahana, double hargaDasar, int stok, double diskonHariKerja) {
+    public TiketReguler(String kodeTiket, String namaWahana, double hargaDasar, int stok, double diskonHariKerja) throws Exception {
         super(kodeTiket, namaWahana, hargaDasar, stok);
         this.diskonHariKerja = diskonHariKerja;
     }
 
     @Override
     public double hitungHargaTiket() {
-        return getHargaDasar() - (getHargaDasar() * (this.diskonHariKerja / 100.0));
-    }
-
-    @Override
-    public void tampilkanDetailTiket() {
-        String statusStok = (getStok() > 0) ? String.valueOf(getStok()) : "SOLD OUT";
-        String infoTambahan = String.format("Diskon: %.0f%%", this.diskonHariKerja);
-        System.out.printf("| %-8s | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-8s |%n",
-                "REGULER", getKodeTiket(), getNamaWahana(), getHargaDasar(), infoTambahan, hitungHargaTiket(), statusStok);
+        return getHargaDasar() - (getHargaDasar() * (diskonHariKerja / 100));
     }
 
     @Override
     public void cetakAturanAkses() {
-        System.out.println("[Tiket Reguler] Jalur antrean standar harian.");
+        System.out.println("[Tiket Reguler] Akses jalur antrean reguler.");
+    }
+
+    @Override
+    public void tampilkanDetailTiket(int no) {
+        String ket = String.format("Diskon: %.0f%%", diskonHariKerja);
+        System.out.printf("| %-2d | Reguler  | %-8s | %-16s | Rp%-10.0f | %-25s | Rp%-10.0f | %-6d |\n",
+                no, getKodeTiket(), getNamaWahana(), getHargaDasar(), ket, hitungHargaTiket(), getStok());
     }
 }
