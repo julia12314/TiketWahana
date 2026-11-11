@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tiketwahana;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
  * @author USER
  */
 public class TransaksiPembelian {
-
     public static void prosesBeli(Pengunjung pengunjung, Tiket tiket) {
         System.out.println("\n----------------------------------------");
         System.out.println("         STRUK TRANSAKSI PEMBELIAN      ");
@@ -28,5 +29,13 @@ public class TransaksiPembelian {
             ((DapatAsuransi) tiket).tampilkanInfoAsuransi();
         }
         System.out.println("----------------------------------------");
+
+        try (FileWriter pipaTulis = new FileWriter("log_transaksi.txt", true)) {
+            String log = "Pembeli: " + pengunjung.getNama() + " (" + pengunjung.getIdPengunjung()
+            + ") | Tiket: " + tiket.getNamaWahana() + " | Total: Rp" + String.format("%.0f", tiket.hitungHargaTiket()) + "\n";
+            pipaTulis.write(log);
+        } catch (IOException e) {
+            System.out.println("[Peringatan] Gagal menulis log transaksi ke file: " + e.getMessage());
+        }
     }
 }

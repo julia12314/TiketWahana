@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tiketwahana;
+import java.io.Serializable;
 
 /**
  *
  * @author USER
  */
-public abstract class Tiket {
+public abstract class Tiket implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String kodeTiket;
     private String namaWahana;
     private double hargaDasar;

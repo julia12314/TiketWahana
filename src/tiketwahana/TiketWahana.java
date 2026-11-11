@@ -10,32 +10,34 @@ import java.util.Scanner;
  *
  * @author USER
  */
-
 public class TiketWahana {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        TamanBermain tamanCeria = new TamanBermain("Taman Bermain Ceria");
+        TamanBermain tamanCeria = new TamanBermain("Taman Bermain TamanCeria");
         tamanCeria.bukaTamanBermain();
 
-        try {
-            tamanCeria.tambahTiket(new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10));
-            tamanCeria.tambahTiket(new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000));
-            tamanCeria.tambahTiket(new TiketReguler("TKT-003", "Rumah Hantu", 40000, 8, 5));
-            tamanCeria.tambahTiket(new TiketVVIP("TKT-004", "Kora-Kora VVIP", 200000, 3, true, 50000));
+        tamanCeria.muatDataDariFile();
 
-            tamanCeria.tambahPengunjung(new Pengunjung("CUST-001", "Budi Santoso"));
-            tamanCeria.tambahPengunjung(new Pengunjung("CUST-002", "Siti Aminah"));
-            tamanCeria.tambahPengunjung(new Pengunjung("CUST-003", "Ahmad Fauzi"));
-        } catch (Exception e) {
-            System.out.println("Error saat inisialisasi: " + e.getMessage());
+        if (tamanCeria.getJumlahTiket() == 0) {
+            try {
+                tamanCeria.tambahTiket(new TiketReguler("TKT-001", "Bianglala", 50000, 10, 10));
+                tamanCeria.tambahTiket(new TiketVIP("TKT-002", "Roller Coaster", 120000, 5, true, 30000));
+                tamanCeria.tambahTiket(new TiketReguler("TKT-003", "Rumah Hantu", 40000, 8, 5));
+                tamanCeria.tambahTiket(new TiketVVIP("TKT-004", "Kora-Kora VVIP", 200000, 3, true, 50000));
+
+                tamanCeria.tambahPengunjung(new Pengunjung("CUST-001", "Budi Santoso"));
+                tamanCeria.tambahPengunjung(new Pengunjung("CUST-002", "Siti Aminah"));
+                tamanCeria.tambahPengunjung(new Pengunjung("CUST-003", "Ahmad Fauzi"));
+            } catch (Exception e) {
+                System.out.println("Error inisialisasi: " + e.getMessage());
+            }
         }
 
         boolean isRunning = true;
-        System.out.println("=======================================================");
-        System.out.println("             SISTEM MANAJEMEN TIKET WAHANA             ");
-        System.out.println("=======================================================");
+        System.out.println("=====================================================");
+        System.out.println("            SISTEM MANAJEMEN TIKET WAHANA            ");
+        System.out.println("=====================================================");
 
         while (isRunning) {
             System.out.println("\nMENU UTAMA:");
@@ -43,9 +45,10 @@ public class TiketWahana {
             System.out.println("2. Lihat Daftar Tiket");
             System.out.println("3. Cari Tiket");
             System.out.println("4. Manajemen Pengunjung");
-            System.out.println("5. Pembelian Tiket / Transaksi"); 
-            System.out.println("6. Keluar System");
-            System.out.print("Pilih Menu (1-6): ");
+            System.out.println("5. Pembelian Tiket / Transaksi");
+            System.out.println("6. Baca File Log Transaksi");
+            System.out.println("7. Simpan & Keluar");
+            System.out.print("Pilih Menu (1-7): ");
 
             try {
                 int pilihan = scanner.nextInt();
@@ -131,7 +134,7 @@ public class TiketWahana {
                         break;
 
                     case 5:
-                        System.out.println("\n--- Sistem Pembelian Tiket (Demo Association) ---");
+                        System.out.println("\n--- Sistem Pembelian Tiket (Demo Association & File I/O Teks) ---");
                         System.out.print("Masukkan ID Pengunjung Pembeli: ");
                         String inputId = scanner.nextLine();
                         
@@ -148,7 +151,6 @@ public class TiketWahana {
 
                             if (noTiket >= 0 && noTiket < tamanCeria.getJumlahTiket()) {
                                 Tiket tiketPilih = tamanCeria.getTiketInt(noTiket);
-
                                 TransaksiPembelian.prosesBeli(pembeli, tiketPilih);
                             } else {
                                 System.out.println("Nomor tiket tidak valid!");
@@ -157,8 +159,14 @@ public class TiketWahana {
                         break;
 
                     case 6:
+                        tamanCeria.bacaLogTransaksi();
+                        break;
+
+                    case 7:
+                        System.out.println("Menyimpan sesi ke database internal...");
+                        tamanCeria.simpanDataKeFile();
+                        System.out.println("Terima kasih telah menggunakan Sistem Manajemen Tiket Taman Bermain!");
                         isRunning = false;
-                        System.out.println("\nTerima kasih telah menggunakan Sistem Manajemen Tiket Taman Bermain!");
                         break;
 
                     default:
